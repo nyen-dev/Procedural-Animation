@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class SpiderPhysicsMovement : MonoBehaviour, IMovement
+public class SpiderAnimPhysicsMovement : SpiderAnimationMovement
 {
     #region COMPONENTS
     private Rigidbody rb;
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody>();        
+        base.Start();
+        rb = GetComponent<Rigidbody>();               
     }
 
-    public void Rotate(Quaternion rot)
+    protected override void TransformRot(Quaternion rot)
     {
         rb.MoveRotation(transform.rotation * rot);
     }
 
-    public void Translate(Vector3 transl)
+    protected override void TransformTransl(Vector3 transl)
     {
         rb.MovePosition(transform.position + transl);
     }

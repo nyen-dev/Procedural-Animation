@@ -568,7 +568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125162946}
   m_LocalRotation: {x: 0.1487349, y: 0.00083614694, z: -0.00012576311, w: 0.98887676}
-  m_LocalPosition: {x: -0.255, y: 0.54760003, z: -1.774}
+  m_LocalPosition: {x: -0.0029999912, y: 0.546, z: -1.774}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -758,33 +758,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1631968778, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.00083614694
-      objectReference: {fileID: 0}
-    - target: {fileID: 1631968778, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.00012576311
-      objectReference: {fileID: 0}
-    - target: {fileID: 1631968778, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.1487349
-      objectReference: {fileID: 0}
-    - target: {fileID: 395482142284085488, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 395482142284185584, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
       propertyPath: m_Name
-      value: Spider Physics Based
+      value: Spider Kinematic
       objectReference: {fileID: 0}
     - target: {fileID: 395482142284210704, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.252
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 395482142284210704, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0016
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 395482142284210704, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
       propertyPath: m_LocalPosition.z
@@ -824,6 +808,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92cfff35067d3b646a3c822a7bd8e320, type: 3}
+--- !u!1001 &5629745120509794717
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8137611124874317291, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.1487349
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137611124874317291, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00083612994
+      objectReference: {fileID: 0}
+    - target: {fileID: 8137611124874317291, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00012576058
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178067240, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_Name
+      value: Spider AnimPhysics
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943431246178238152, guid: e519d7310cac7c5458e8630498724267, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e519d7310cac7c5458e8630498724267, type: 3}
 --- !u!1001 &7916546866039839392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -833,31 +886,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 365588610, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00083613826
+      value: 0.00083614694
       objectReference: {fileID: 0}
     - target: {fileID: 365588610, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00012576181
+      value: -0.00012576311
       objectReference: {fileID: 0}
     - target: {fileID: 365588610, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.14873491
       objectReference: {fileID: 0}
-    - target: {fileID: 365588610, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.774
-      objectReference: {fileID: 0}
     - target: {fileID: 933346153070183329, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 933346153070183329, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0902
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 933346153070183329, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.053
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 933346153070183329, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_LocalRotation.x
@@ -894,10 +943,6 @@ PrefabInstance:
     - target: {fileID: 933346153070485057, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
       propertyPath: m_Name
       value: Spider KeyAnimation
-      objectReference: {fileID: 0}
-    - target: {fileID: 933346153070485057, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f63cf7da555f63c479de67e383d6c2c3, type: 3}

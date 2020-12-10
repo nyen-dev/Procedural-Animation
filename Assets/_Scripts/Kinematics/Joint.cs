@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class Joint : MonoBehaviour
 {
-    private Vector3 offset;
+    #region MEMBERS
+    [SerializeField] private Vector3 m_rotationAxis;
 
-    [SerializeField] private Quaternion maxRotation;
+    [SerializeField] private float m_minAngle;
 
-    [SerializeField] private Quaternion minRotation;
+    [SerializeField] private float m_maxAngle;
+    #endregion
 
+    #region PROPERTIES
+    public Vector3 RestingPosition { get; private set; }
+
+    public Vector3 RotationAxis { get { return m_rotationAxis; } }
+
+    public float MinAngle { get { return m_minAngle; }}
+
+    public float MaxAngle { get { return m_maxAngle; } }
+    #endregion
+    
     void Awake()
     {
-        offset = transform.localPosition;
+        RestingPosition = transform.localPosition;
     }
 
     // Start is called before the first frame update
@@ -26,6 +38,4 @@ public class Joint : MonoBehaviour
     {
         
     }
-
-    public Vector3 getOffset() { return offset; }
 }
