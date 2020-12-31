@@ -3,34 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public abstract class SpiderAnimationMovement : MonoBehaviour, IMovement
+public abstract class AnimCreatureBase : MonoBehaviour, IMovement
 {
     #region COMPONENTS
-    private Animator spiderAnimator;
+    private Animator _spiderAnimator;
     #endregion
 
+    #region UNITY METHODS
     // Start is called before the first frame update
     protected virtual void Start()
-    {
-        
-        spiderAnimator = GetComponent<Animator>();
+    {  
+        _spiderAnimator = GetComponent<Animator>();
     }
+    #endregion
 
+    #region IMovement
     public void Rotate(Quaternion rot)
-    {       
+    {     
         TransformRot(rot);
+
         float angularVelocity = rot.eulerAngles.y * Mathf.Deg2Rad / Time.fixedDeltaTime;
-        spiderAnimator.SetFloat("Angular Velocity", angularVelocity);
+        _spiderAnimator.SetFloat("Angular Velocity", angularVelocity);      
     }
 
     public void Translate(Vector3 transl)
     {
         TransformTransl(transl);
+
         float linearVelocity = transl.magnitude / Time.fixedDeltaTime;
-        if (linearVelocity > 0) spiderAnimator.SetBool("Is Walking", true);
-        else spiderAnimator.SetBool("Is Walking", false);
-        spiderAnimator.SetFloat("Linear Velocity", linearVelocity);
+        if (linearVelocity > 0) _spiderAnimator.SetBool("Is Walking", true);
+        else _spiderAnimator.SetBool("Is Walking", false);
+        _spiderAnimator.SetFloat("Linear Velocity", linearVelocity);      
     }
+    #endregion
 
     protected abstract void TransformRot(Quaternion rot);
 

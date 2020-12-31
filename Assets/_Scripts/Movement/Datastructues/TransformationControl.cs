@@ -3,6 +3,6 @@
 [Serializable()]
 public struct TransformationControl
 {
-    public float acceleration;
-    public float maxVelocity;
+    public float Acceleration;
+    public float MaxVelocity;
 }

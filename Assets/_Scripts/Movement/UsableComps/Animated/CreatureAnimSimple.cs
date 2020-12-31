@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class SpiderAnimSimpleMovement : SpiderAnimationMovement
+public class CreatureAnimSimple : AnimCreatureBase
 {
     #region COMPONENTS
-    private CharacterController characterController;
+    private CharacterController _characterController;
     #endregion
 
+    #region UNITY METHODS
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
+    #endregion
 
+    #region AnimCreatureBase
     protected override void TransformRot(Quaternion rot) {
         transform.rotation = transform.rotation * rot;
     }
 
     protected override void TransformTransl(Vector3 transl) {
-        characterController.Move(transl);
+        _characterController.Move(transl);
     }
+    #endregion
 }
