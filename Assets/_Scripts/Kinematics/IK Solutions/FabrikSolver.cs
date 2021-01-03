@@ -146,24 +146,25 @@ public class FabrikSolver : IKSolverBase
     #endregion
 
     #region PRIVATE METHODS
-    private Vector3 GetPositionRootSpace(Transform current)
+    private Vector3 GetPositionRootSpace(Transform joint)
     {
-        return Vector3.Scale(Joints[0].InverseTransformPoint(current.position), Joints[0].lossyScale);
+        return Vector3.Scale(Joints[0].InverseTransformPoint(joint.position), Joints[0].lossyScale);
     }
 
-    private void SetPositionRootSpace(Transform current, Vector3 position)
+    private void SetPositionRootSpace(Transform joint, Vector3 position)
     {
-        current.position = Joints[0].position + Joints[0].rotation * position;
+        joint.position = Joints[0].position + Joints[0].rotation * position;
     }
 
-    private Quaternion GetRotationRootSpace(Transform current)
+    private Quaternion GetRotationRootSpace(Transform joint)
     {
-        return Joints[0].rotation * Quaternion.Inverse(current.rotation);
+        return Joints[0].rotation * Quaternion.Inverse(joint.rotation);
     }
 
-    private void SetRotationRootSpace(Transform current, Quaternion rotation)
+    private void SetRotationRootSpace(Transform joint, Quaternion rotation)
     {
-        current.rotation  = Joints[0].rotation * rotation;
+        Quaternion newRot = Joints[0].rotation * rotation;
+        joint.rotation = newRot;
     }
     #endregion
 }

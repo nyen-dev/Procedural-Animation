@@ -42,11 +42,11 @@ public class GradientDescSolver : IKSolverBase
         for(int i = 1; i < ChainLength; i++) _rotations[i] = Joints[i].localRotation; 
     }
 
-    protected override void ResolveIK() {               
-        // Version 1:
+    protected override void ResolveIK() {     
+        // Version 1: per dof (IKv1) -> calculate partialGradient for each DOF               
         InverseKinematics(Target.position, ref _rotations); 
 
-        // Version 2: 
+        // Version 2: per joint (IKv2) -> call IK for each DOF  
         //foreach(Vector3 axis in THREE_ROTATION_DOF) InverseKinematicsV2(m_Target.position, ref m_Rotations, axis);               
     }
     #endregion
@@ -61,7 +61,7 @@ public class GradientDescSolver : IKSolverBase
     {       
         // Root position
         Vector3 currentPos = Joints[0].position;
-        currentPos = _rootParent != null ? Vector3.Scale(currentPos, _rootParent.lossyScale) : currentPos;
+        //currentPos = _rootParent != null ? Vector3.Scale(currentPos, _rootParent.lossyScale) : currentPos;
         Quaternion rotation = Quaternion.identity;
         for (int i = 1; i < Joints.Length; i++)
         {

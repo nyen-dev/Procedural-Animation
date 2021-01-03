@@ -121,5 +121,21 @@ public abstract class IKSolverBase : MonoBehaviour
     public virtual Vector3 GetTargetPosition() {
         return Target.position;
     }  
+
+    /// <summary>
+    /// Get the max IK error
+    /// </summary>
+    /// <returns>max error of IK algorithm</returns>
+    public virtual float GetMaxError() {
+        return MaxError;
+    }
+
+    /// <summary>
+    /// Current Error
+    /// </summary>
+    /// <returns></returns>
+    public virtual float GetCurrentError() {
+        return Vector3.Distance(Target.position, transform.position);
+    }
     #endregion 
 }

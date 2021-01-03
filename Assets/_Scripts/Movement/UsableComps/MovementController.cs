@@ -46,23 +46,23 @@ public class MovementController : MonoBehaviour
         else
         {
             AngularVelocity = 0;;
-        }
+        } 
 
         _movement.Rotate(Quaternion.Euler(0, rotationInput, 0));
-
+        
         if (translationInput != 0)
         {
             translationInput *= Time.fixedDeltaTime; 
             // Dont add acceleration when moving backwards -> max -1ms backwards velocity
             if (translationInput > 0) translationInput *= LinearVelocity;           
-            if (LinearVelocity < MovementControl.MaxVelocity) LinearVelocity += MovementControl.Acceleration;           
+            if (LinearVelocity < MovementControl.MaxVelocity) LinearVelocity += MovementControl.Acceleration;                
         }
         else
         {
             LinearVelocity = 0;          
-        }
+        }   
 
-        _movement.Translate(transform.forward * translationInput);
+        _movement.Translate(transform.forward * translationInput);        
     }
     #endregion
 }
