@@ -5,29 +5,32 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     #region EDITOR VALS
-    /// <summary> Target to follow and look around</summary>
+    /// <summary> Target to follow and look around </summary>
     [SerializeField] private Transform Target = null;
 
-    /// <summary> Rotationspeed X-axis</summary>
+    /// <summary> Rotationspeed X-axis </summary>
     [SerializeField] private float VertSpeed = 1f;
 
     /// <summary> Rotationspeed Y-axis</summary>
     [SerializeField] private float HorizSpeed = 1f;
 
-    /// <summary> Mouserotation constraint X-axis</summary>
+    /// <summary> Mouserotation constraint X-axis </summary>
     [SerializeField] private Vector2 XAngleLimits = Vector2.zero;
 
-    /// <summary> Mouserotation constraint Y-axis</summary>
+    /// <summary> Mouserotation constraint Y-axis </summary>
     [SerializeField] private Vector2 YAngleLimits = Vector2.zero;
     #endregion
 
-    /// <summary> Offset to the target</summary>
+    #region REFS
+    /// <summary> Offset to the target </summary>
     private Vector3 _offset;
 
-    /// <summary> </summary>
+    /// <summary> Store the mouserotation </summary>
     private Quaternion _mouseRotation = Quaternion.identity;
 
+    /// <summary> Initial rotation </summary>
     private Quaternion _startRotation;
+    #endregion
 
     void Start() {
         _offset = transform.position - Target.position;
@@ -37,7 +40,7 @@ public class PlayerCamera : MonoBehaviour
 
     void Update() {
         // Mouse input
-        float horizontal = Input.GetAxis("Mouse X") * VertSpeed;
+        float horizontal = Input.GetAxis("Mouse X") * HorizSpeed;
         float vertical = Input.GetAxis("Mouse Y") * VertSpeed;
 
         // Store rotation

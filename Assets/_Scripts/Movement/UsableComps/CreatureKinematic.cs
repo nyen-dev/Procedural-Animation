@@ -20,10 +20,10 @@ public class CreatureKinematic : MonoBehaviour, IMovement
     [SerializeField] private LegPair[] FootPairs = new LegPair[0];
 
     /// <summary> Step distance </summary>
-    [SerializeField] private float StepDistance = 1;
+    [SerializeField] private float LinearStepThreshold = 1;
 
     /// <summary> Max difference between angle new target and current</summary>
-    [SerializeField] private float AngleDistance = 10f;
+    [SerializeField] private float AngularStepThreshold = 10f;
     #endregion
 
     #region COMPONENTS
@@ -34,10 +34,13 @@ public class CreatureKinematic : MonoBehaviour, IMovement
     /// <summary> Primary foot target positions </summary>
     private Transform[] _footTargets = new Transform[0];
 
-    private Vector3 _rootOffset = Vector3.zero;
+    /// <summary> Initial offset to the center </summary>
+    private Vector3 _centerOffset = Vector3.zero;
 
+    /// <summary> Rather to move the primary or opposite leg </summary>
     private bool _movePrimaryLeg = true; 
 
+    /// <summary> Layermasks except eigh </summary>
     private const int RAYCAST_LAYERMASK = ~(1 << 8);
     #endregion
 
@@ -45,6 +48,7 @@ public class CreatureKinematic : MonoBehaviour, IMovement
     // Start is called before the first frame update
     void Start()
     {   
+        // Get components
         _rigidBody = GetComponent<Rigidbody>();
 
         // Initialize footTargets
@@ -57,7 +61,7 @@ public class CreatureKinematic : MonoBehaviour, IMovement
 
         // Initialize rootOffset
         Vector3 center = RectangleCenterPoint(_footTargets.Select(target => target.position).ToArray());
-        _rootOffset = transform.position - center;
+        _centerOffset = transform.position - center;
     }
 
     // Update is called once per frame
@@ -70,12 +74,7 @@ public class CreatureKinematic : MonoBehaviour, IMovement
                 Vector3 groundFootPos = hit.point;
                 _footTargets[i].position = groundFootPos;
             }
-        }
-
-        // Move foot if a certain distance is reached
-        if(MoveFoot()) _movePrimaryLeg = !_movePrimaryLeg; 
-
-        // Body rotation  
+        }   
     }
 
     void OnDrawGizmos() {
@@ -93,6 +92,12 @@ public class CreatureKinematic : MonoBehaviour, IMovement
     }
     #endregion
     
+    #region PRIVATE METHODS
+    /// <summary>
+    /// Calculate the center point of an rectangle
+    /// </summary>
+    /// <param name="borderPoints">points defining the rectangle</param>
+    /// <returns>rectangle center</returns>
     private Vector3 RectangleCenterPoint(Vector3[] borderPoints) {
         Vector3 center = Vector3.zero;
         for (int i = 0; i < borderPoints.Length; i++) { 
@@ -105,6 +110,12 @@ public class CreatureKinematic : MonoBehaviour, IMovement
         return center;
     }
     
+    /// <summary>
+    /// Spawn a gameObject as target for the given IKSolver 
+    /// </summary>
+    /// <param name="foot">Foot with IKSolver</param>
+    /// <param name="footNumber">foot id (naming purpose only)</param>
+    /// <returns>Transform of the spawned gameObject</returns>
     private Transform SpawnFootTarget(IKSolverBase foot, int footNumber) {
         Transform footTarget = new GameObject(gameObject.name + string.Format(" Foot[{0}]-Target", footNumber)).transform;
         footTarget.position = foot.transform.position;
@@ -115,7 +126,11 @@ public class CreatureKinematic : MonoBehaviour, IMovement
         return footTarget;
     }
 
-    private bool MoveFoot() {
+    /// <summary>
+    /// Move the FootIKs targets to the next position
+    /// </summary>
+    /// <returns>Rather a foot was moved or not</returns>
+    private bool SetFootIKTargets(Func<Vector3, Vector3, float> error, float threshold) {
         // Check if Stepping distance has been reached  
         bool moved = false;
         for (int i = 0; i < FootPairs.Length; i ++) {
@@ -130,17 +145,23 @@ public class CreatureKinematic : MonoBehaviour, IMovement
             Vector3 otherFootTargetPos = _footTargets[otherFootTargetIndex].position; 
             
             if((
-                    // StepDistance reached or
-                    Vector3.Distance(footTargetPos, footCurrentPos) > StepDistance ||
-                    // Angle between them reached AngleDistance and either
-                    Vector3.Angle(footTargetPos, footCurrentPos) > AngleDistance
+                    // foot reached threshold
+                    error(footTargetPos, footCurrentPos) > threshold 
+
+                    // // StepDistance reached or
+                    // Vector3.Distance(footTargetPos, footCurrentPos) > LinearStepDistance ||
+                    // // Angle between them reached AngleDistance and either
+                    // Vector3.Angle(footTargetPos, footCurrentPos) > AngularStepDistance
                 ) && (
                     // other foot reached current target or
                     otherFootIK.GetCurrentError() < otherFootIK.GetMaxError() || 
-                    // other foot also has reached the StepDistance
-                    Vector3.Distance(otherFootTargetPos, otherFootCurrentPos) > StepDistance ||
-                    // other foot also reached AngleDistance
-                    Vector3.Angle(otherFootTargetPos, otherFootCurrentPos) > AngleDistance
+                    // other foot reached threshhold as well
+                    error(otherFootTargetPos, otherFootCurrentPos) > threshold
+
+                    // // other foot also has reached the StepDistance
+                    // Vector3.Distance(otherFootTargetPos, otherFootCurrentPos) > LinearStepDistance ||
+                    // // other foot also reached AngleDistance
+                    // Vector3.Angle(otherFootTargetPos, otherFootCurrentPos) > AngularStepDistance
                 )
             ) {
                 footIK.SetTargetPosition(footTargetPos);
@@ -150,18 +171,19 @@ public class CreatureKinematic : MonoBehaviour, IMovement
 
         return moved;
     }
+    #endregion
 
     #region IMovement
     public void Rotate(Quaternion rot)
     {       
         _rigidBody.MoveRotation(transform.rotation * rot);
-        // rot != Quaternion.identity && 
+        if (rot != Quaternion.identity && SetFootIKTargets(Vector3.Angle, AngularStepThreshold)) _movePrimaryLeg = !_movePrimaryLeg; 
     }
 
     public void Translate(Vector3 transl)
     {
         _rigidBody.MovePosition(transform.position + transl);
-        // transl.magnitude > 0 &&
+        if (transl.sqrMagnitude > 0 && SetFootIKTargets(Vector3.Distance, LinearStepThreshold)) _movePrimaryLeg = !_movePrimaryLeg; 
     }
     #endregion
 }

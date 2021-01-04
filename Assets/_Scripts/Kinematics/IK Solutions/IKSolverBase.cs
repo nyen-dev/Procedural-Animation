@@ -52,24 +52,26 @@ public abstract class IKSolverBase : MonoBehaviour
     }
 
     void OnDrawGizmos()
-    {       
-        #if UNITY_EDITOR
+    {        
+        // Joints     
         Transform current = transform;
         Gizmos.color = Color.green;
         for (int i = 0; i < ChainLength && current != null && current.parent != null; i++)
         {
             Gizmos.DrawLine(current.parent.position, current.position);
-            Gizmos.DrawSphere(current.parent.position, .01f);
+            Gizmos.DrawSphere(current.parent.position, .005f * current.lossyScale.magnitude);
             current = current.parent;
-        }
-        #endif 
-
+        }        
+         
+        // Target with shown MaxError
         if (Target != null) {
-            // Draw a red sphere at the target position
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(Target.position, MaxError);
             Gizmos.DrawLine(transform.position, Target.position);
-        }         
+        } else {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.position, MaxError);
+        }                     
     }
     #endregion
 
