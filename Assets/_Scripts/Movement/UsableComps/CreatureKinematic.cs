@@ -71,7 +71,7 @@ public class CreatureKinematic : MonoBehaviour, IMovement
     void Update()
     {   
         // FootTargets should always be grounded 
-        for (int i = 0; i < FootPairs.Length; i++) {          
+        for (int i = 0; i < _footTargets.Length; i++) {          
             RaycastHit hit;  
             if (Physics.Raycast(_footTargets[i].position + Vector3.up * 5f, -_footTargets[i].up, out hit, 1f, RAYCAST_LAYERMASK)) {
                 Vector3 groundFootPos = hit.point;
