@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,11 @@ public class MovementController : MonoBehaviour
     public float LinearVelocity { get; private set; } = 0;
 
     public float AngularVelocity { get; private set; } = 0;
+    #endregion
+
+    #region EVENTS
+    /// <summary>Event called when the player is on its back and cannot move</summary>
+    static public Action OnPlayerStuck; 
     #endregion
 
     #region UNITY METHODS
@@ -63,6 +69,13 @@ public class MovementController : MonoBehaviour
         }   
 
         _movement.Translate(transform.forward * translationInput);        
+    }
+
+    void LateUpdate() 
+    {
+        if (transform.up.y <= 0 || transform.position.y < -1) {     
+            OnPlayerStuck?.Invoke();
+        }
     }
     #endregion
 }

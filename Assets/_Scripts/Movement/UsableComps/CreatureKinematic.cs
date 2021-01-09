@@ -3,6 +3,9 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [RequireComponent(typeof(Rigidbody))]
 public class CreatureKinematic : MonoBehaviour, IMovement
@@ -40,7 +43,7 @@ public class CreatureKinematic : MonoBehaviour, IMovement
     /// <summary> Rather to move the primary or opposite leg </summary>
     private bool _movePrimaryLeg = true; 
 
-    /// <summary> Layermasks except eigh </summary>
+    /// <summary> Layermasks except eighth </summary>
     private const int RAYCAST_LAYERMASK = ~(1 << 8);
     #endregion
 
@@ -75,6 +78,11 @@ public class CreatureKinematic : MonoBehaviour, IMovement
                 _footTargets[i].position = groundFootPos;
             }
         }   
+
+        #if UNITY_EDITOR
+        if (SetFootIKTargets(Vector3.Angle, AngularStepThreshold)) _movePrimaryLeg = !_movePrimaryLeg;
+        if (SetFootIKTargets(Vector3.Distance, LinearStepThreshold)) _movePrimaryLeg = !_movePrimaryLeg;
+        #endif
     }
 
     void OnDrawGizmos() {
